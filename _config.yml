@@ -1,0 +1,30 @@
+# Site settings
+title: hugo lhuillier
+email: hugo.lhu@gmail.com
+
+# Sidebar settings
+description: Hugo Lhuillier
+
+# Social icons
+# google_scholar: fMPIb8sAAAAJ
+# linkedin: gregory-owens-34434b100
+github: HugoLhuillier
+
+
+footer: Département d'économie <br>
+
+        Sciences Po <br>
+
+        28 rue des Saint-Pères <br>
+
+        75007 Paris
+
+# Build settings
+markdown: kramdown
+
+highlighter: rouge
+
+collections:
+  visualization:
+    output: true
+    permalink: /visualization/:path/

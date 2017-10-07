@@ -1,0 +1,46 @@
+<!-- Begin Body -->
+<div class="container">
+	<div class="row">
+  			<div class="col-md-2" id="leftCol">
+
+								<div id="picture" style="background-image: url(/ext-files/imgs/hugolhuillier.jpg)"></div>
+								<p>  {{site.description}} </p>
+								<br>
+
+								{% include nav.html %}
+
+
+								<hr>
+
+								<div class="col-md-15 content">
+									<a style="white-space: nowrap" href="mailto:{{ site.email }}">
+										<p> <i style="color: #cc0505" class="fa fa-envelope" aria-hidden="true"></i> hugo.lhu@gmail.com </p>
+									</a>
+									<a style="white-space: nowrap"  href="http://github.com/{{ site.github }}" target="_blank">
+										<p> <i style="color: #cc0505" class="fa fa-github" aria-hidden="true"></i> HugoLhuillier </p>
+									</a>
+
+									{% if site.google_scholar %}
+										<li><a href="https://scholar.google.ca/citations?user={{site.google_scholar}}"><i class="fa fa-google"></i></a></li>
+									{% endif %}
+
+								</div>
+
+								<hr>
+								<div class="col-md-20 content">
+									<h3> Contact </h3>
+									<p class="text">
+									<p> {{ site.footer }} </p>
+								</div>
+
+
+
+      		</div>
+
+      		<div class="col-md-9 content">
+
+            {{ content }}
+
+      		</div>
+  	</div>
+</div>

@@ -1,0 +1,16 @@
+- title: "home"
+  href: "/"
+
+- title: "cv"
+  href: "/cv/"
+
+- title: "research"
+  href: "/research/"
+  subcategories:
+    - subtitle: "independent research"
+      subhref: "/research/ind-research"
+    - subtitle: "research assistant"
+      subhref: "/research/ra"
+
+- title: "visualization"
+  href: "/visualization/"

@@ -1,3 +1,3 @@
 # Personal website
 
-This is a Jekyll served website statically hosted on Github. The website is mainly drawn from [Ankit Sultana's template](https://github.com/bk2dcradle/researcher), while some bits belong to [Florian Oswald's website](https://github.com/floswald/floswald.github.io). Cheers to both of them.
+This is a Jekyll served website statically hosted on Github. The website is based on Valentina Fernandez Alanis' theme, [taken](https://github.com/vfalanis/taken), and the visualization page is drawn from Lia Bogoev's [-folio](https://github.com/bogoli/-folio) theme. 
