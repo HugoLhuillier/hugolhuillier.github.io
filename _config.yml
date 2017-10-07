@@ -9,6 +9,8 @@ description: Hugo Lhuillier
 # google_scholar: fMPIb8sAAAAJ
 # linkedin: gregory-owens-34434b100
 github: HugoLhuillier
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://hugolhuillier.github.io/" # the base hostname & protocol for your site
 
 
 footer: Département d'économie <br>
