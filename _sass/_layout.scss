@@ -80,7 +80,8 @@ body
 a {
     font-size: 18px;
     font-family: HelveticaNeue;
-    color: rgb(130, 130, 130);
+    //color: rgb(130, 130, 130);
+    color:#4d4d4d;
 }
 
 .navigation a:hover {
@@ -161,9 +162,8 @@ a.active {
     font-size: 16px;
     line-height: normal;
     font-style: normal;
-    color: rgb(130, 130, 130);
-    font-weight: 300;
-
+    color: #333333;
+    font-weight: bold;
 }
 
 .content pre
