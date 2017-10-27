@@ -12,5 +12,11 @@
     - subtitle: "research assistant"
       subhref: "/research/ra"
 
+- title: "teaching"
+  href: "/teaching/"
+  subcategories:
+    - subtitle: "introduction to programming, Spring, 2017-2018"
+      subhref: "/teaching/intro-prog-spring-18"
+
 - title: "visualization"
   href: "/visualization/"
