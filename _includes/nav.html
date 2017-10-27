@@ -2,11 +2,11 @@
   <ul>
     {% for pag in site.data.menu %}
       <li><a href="{{ pag.href }}" {% if page.url == pag.href %} class="active" {% endif %}>{{ pag.title }}</a>
-      {% if pag.subcategories != null %}
+      <!-- {% if pag.subcategories != null %}
         {% for subcat in pag.subcategories %}
           <li><a href="{{ subcat.subhref }}" {% if page.url == subcat.subhref %} class="active" {% endif %}> <i class="fa fa-toggle-right" aria-hidden="true"></i> {{ subcat.subtitle }}</a></li>
         {% endfor %}
-      {% endif %}
+      {% endif %} -->
       </li>
     {% endfor %}
     <!-- <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home bis</a></li> -->
