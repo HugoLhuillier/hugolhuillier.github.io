@@ -26,6 +26,9 @@ markdown: kramdown
 
 highlighter: rouge
 
+plugins:
+  - jekyll-sitemap
+
 collections:
   visualization:
     output: true
