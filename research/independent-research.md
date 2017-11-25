@@ -1,6 +1,6 @@
 ---
 layout: page
-title: independent research
+title: Independent research
 permalink: /research/ind-research
 ---
 

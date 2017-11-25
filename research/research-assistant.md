@@ -1,6 +1,6 @@
 ---
 layout: page
-title: research assistant
+title: Research assistant
 permalink: /research/ra
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: introduction to programming, Spring, 2017-2018
+title: Introduction to programming, Spring, 2017-2018
 permalink: /teaching/intro-prog-spring-18
 ---
 

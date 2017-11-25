@@ -1,6 +1,6 @@
 ---
 layout: post
-title: lavoir
+title: Lavoir
 description:
 img: /ext-files/imgs/visualization/lavoir.png
 ---
@@ -15,16 +15,15 @@ Here is the associated code.
 # create the data
 X    	= linspace(-10, 10, 50)
 Y   	= linspace(-10, 10, 50)
-z1  	= [[x * cos(y) * cos(x * y) + y * cos(x) * cos(x * y) + x * y * cos(x) * 		
-					cos(y) for y in Y] for x in X]
+z1  	= [[x * cos(y) * cos(x * y) + y * cos(x) * cos(x * y) + x * y * cos(x) * cos(y) for y in Y] for x in X]
 z2   	= [[rand(1)[1] * cos(x * y) * sin(y)^2 + rand(1)[1] for y in Y] for x in X]
 z3   	= [[(rand(1)[1] * 0.2 + 0.8) * (x^2 + y^2) for y in Y] for x in X]
 X   	= repmat(X, 1, 50)
 Y   	= repmat(Y', 50, 1)
 
 # create the figure
-fig = figure("", figsize = (10, 10))
-ax  = fig[:add_subplot](1, 1, 1)
+fig 	= figure("", figsize = (10, 10))
+ax  	= fig[:add_subplot](1, 1, 1)
 # remove the ticks
 ax[:xaxis][:set_tick_params](which = "both", bottom = "off", top = "off", labelbottom = "off")
 ax[:yaxis][:set_tick_params](which = "both", bottom = "off", top = "off", labelbottom = "off")

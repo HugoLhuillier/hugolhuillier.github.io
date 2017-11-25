@@ -1,6 +1,6 @@
 ---
 layout: post
-title: requirements
+title: Requirements
 description:
 img: /ext-files/imgs/requirements.gif
 ---
