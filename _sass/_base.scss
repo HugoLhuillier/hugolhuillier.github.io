@@ -5,7 +5,7 @@ body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
     margin: 0;
-    padding: 0;
+    padding: 0px;
 }
 
 // portofolio variables
@@ -17,15 +17,16 @@ $horizontal-spacing-unit:       50px;
 $vertical-spacing-unit:         40px;
 
 // set theme-color
-$theme-color:  #cc0505;
+// $theme-color:  #cc0505;
+$theme-color: #db7508;
 
 /**
  * Basic styling
  */
 body {
     font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
-    // color: $text-color;
-    color: #a52a2a;
+    color: $text-color;
+    // color: #a52a2a;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
     -webkit-font-feature-settings: "kern" 1;
@@ -44,7 +45,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
-    margin-bottom: $spacing-unit / 2;
+    margin-bottom: $spacing-unit;
 }
 
 

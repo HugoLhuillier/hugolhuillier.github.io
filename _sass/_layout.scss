@@ -1,13 +1,14 @@
 body
 {
-    margin-top: 40px ! important;
+    margin-top: 50px ! important;
+    margin-bottom: 10px ! important;
 }
 
 /*      SIDEBAR SETTINGS    */
 
 #picture{
-    width:150px;
-    height:150px;
+    width:50px;
+    height:50px;
     border-radius:10%;
     background-size: cover;
     margin-bottom: 8px;
@@ -53,7 +54,8 @@ body
 #SocIcons a {
     font-size: 16px;
     // color: rgb(130, 130, 130);
-    color: red-color;
+    // color: red-color;
+    color: #db7508;
 }
 
 .navigation
@@ -108,7 +110,8 @@ a.active {
     font-variant: normal;
     font-weight: bold;
     // color:  rgb(200, 200, 200);
-    color:  #cc0505;
+    // color:  #cc0505;
+    color : #db7508;
 }
 
 .content{
@@ -124,7 +127,8 @@ a.active {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
-    border-top: 3px solid #cc0505;
+    // border-top: 3px solid #cc0505;
+    border-top: 3px solid #db7508;
     border-bottom: 3px solid #fff;
 }
 
@@ -149,7 +153,7 @@ a.active {
     font-weight: normal;
     margin-bottom: 5px;
     // color: #666666;
-    color: #cc0505;
+    color: #db7508;
     font-weight: bold;
     font-size: 17px;
 }

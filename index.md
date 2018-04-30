@@ -6,18 +6,18 @@ layout: main
 <h1> {{ site.title }} </h1>
 <hr>
 
-<h2 style="color:#cc0505; text-align:left;"> Welcome on my website! </h2>
+<h2 style="color:#db7508; text-align:left;"> Welcome on my website! </h2>
 
 <span style="display:block; height: 1em;"></span>
 
 <div style="width: 100%;overflow:auto;">
    <div style="float:left; width: 65%">
 
-   I am a research assistant to Nuno Coimbra and Hélène Rey, developing a DSGE with <a href="http://www.helenerey.eu/RP.aspx?pid=Working-Papers_en-GB&aid=194556523_67186463733" target="_blank"> heterogeneous financial intermediaries </a>, and to Nicolas Coeurdacier and Florian Oswald, working on the heterogeneous agent part of their new urban model. You can learn more on these projects, as well as on past works I have contributed to as research assistant, <a href="/research/ra">here</a>
+   I am a future Ph.D. student in Economics at Princeton University, starting my graduate studies in the Fall of 2018. My research is in Macroeconomics; I am particularly interested in consumption and saving behaviors, intergenerational inequality, and optimal taxation.
 
-  <br><br>
+   <br><br>
 
-  <b> I am applying for PhDs this fall</b>. I completed my Master’s degree in economics in July 2017 at Sciences Po. For my <a href="/research/ind-research.html">Master’s thesis</a>, I worked on an heterogeneous agent model, questioning whether intergenerational transfers are a source of inequality. More generally, my research focuses on heterogeneous agents macroeconomics. I’m particularly interested in introducing strategic thinking in these models, e.g. to study time-consistent and optimal public policies.
+   I am currently a research assistant to Hélène Rey at the London Business School, and Nicolas Coeurdacier at Sciences Po. You can learn more on the projects I have contributed to as a research assistant <a href="/research/ra">here</a>.
 
    </div>
    <div style="float:right;">
