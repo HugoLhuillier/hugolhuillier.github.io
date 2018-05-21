@@ -7,7 +7,7 @@ permalink: /research/ind-research
 <h2> Work in progress </h2>
 <h3> Intergenerational Transfer without Commitment: a Macroeconomic Framework </h3>
 
-[<a href="/ext-files/pdfs/intergenationalTransferLhuillier2017.pdf" target = "blank">very preliminary version</a>]
+[pdf available upon <a href="mailto:{{ site.email }}">request</a>]
 
 **Abstract**: Can a heterogeneous agent model replicate the empirical wealth distribution when individuals are altruistic and strategic? To answer this question, this paper constructs a heterogeneous agent model with a life cycle and overlapping generations. The main unit of interest is the family, constituted of two generations with their own preferences. The older generation values the utility of its descendant. The decision-making process is thought as a two-stage non-cooperative game, and both players do not have access to commitment devices. In this model, intergenerational transfers occur and are driven by two main motives. First, transfers are used by parents to redistribute wealth across the members of the family. Second, they are used as a risk sharing tool to help the young member of the family smooth its consumption when faced by adverse shocks. Both motives eventually push savings upwards. We test the predictions of the model, and find that its qualitative properties are in line with the empirical evidence on life cycle consumption, savings and intergenerational transfer. The model is also able to generate a wealth distribution with a relatively thick right tail.
 
