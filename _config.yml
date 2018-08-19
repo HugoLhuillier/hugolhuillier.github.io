@@ -13,13 +13,13 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://hugolhuillier.github.io/" # the base hostname & protocol for your site
 
 
-footer: Département d'économie <br>
+footer: Hugo Lhuillier <br>
 
-        Sciences Po <br>
+        Department of Economics <br>
 
-        28 rue des Saint-Pères <br>
+        Julis Romo Rabinowitz Building <br>
 
-        75007 Paris
+        Princeton, NJ 08544
 
 # Build settings
 markdown: kramdown
