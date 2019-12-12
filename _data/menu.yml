@@ -9,8 +9,6 @@
   subcategories:
     - subtitle: "independent research"
       subhref: "/research/ind-research"
-    - subtitle: "research assistant"
-      subhref: "/research/ra"
 
 - title: "teaching"
   href: "/teaching/"

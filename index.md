@@ -13,11 +13,12 @@ layout: main
 <div style="width: 100%;overflow:auto;">
    <div style="float:left; width: 65%">
 
-   I am a Ph.D. student in Economics at Princeton University. My research is in Macroeconomics; I am particularly interested in consumption and saving behaviors, intergenerational inequality, and optimal taxation.
+   I am a second-year Ph.D. student in Economics at Princeton University. My research is in macroeconomics, labor and optimal taxation.
 
    <br><br>
 
-   I previously worked as a research assistant for Hélène Rey at the London Business School, and Nicolas Coeurdacier at Sciences Po. You can learn more on the projects I have contributed to as a research assistant <a href="/research/ra">here</a>.
+   <!-- TODO: add a summary of recent activities in the future -->
+   <!-- I previously worked as a research assistant for Hélène Rey at the London Business School, and Nicolas Coeurdacier at Sciences Po. You can learn more on the projects I have contributed to as a research assistant <a href="/research/ra">here</a>. -->
 
    </div>
    <div style="float:right;">
