@@ -13,7 +13,7 @@ layout: main
 <div style="width: 100%;overflow:auto;">
    <div style="float:left; width: 65%">
 
-   I am a second-year Ph.D. student in Economics at Princeton University. My research is in macroeconomics, labor and optimal taxation.
+   I am a second-year Ph.D. student in Economics at Princeton University. My research is in macroeconomics, spatial economics and labor.
 
    <br><br>
 
