@@ -6,7 +6,7 @@ body {
   padding: 0px 0 20px 0px;
   margin: 0px;
   font: 14px/1.5 'Open Sans', sans-serif;
-  color: #A3BFC6 ;
+  color: #e9eaea ;
   font-weight: normal;
   background: {{ site.data.theme.bg }};
   -webkit-font-smoothing: subpixel-antialiased;
@@ -19,7 +19,7 @@ body {
 {% endunless %}
 
 h1, h2, h3, h4, h5, h6 {
-  color:#B3D1F0;
+  color: #dcd64e;
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
 }
@@ -57,13 +57,13 @@ h3 {
 }
 
 a {
-  color: #49B1F7;
+  color: #6fb6d4;
   font-weight: 400;
   text-decoration: none;
 }
 
 a:hover {
-  color: #EC4E3B;
+  color: #bc4027;
 }
 
 a:hover, a:active, a:focus, a:visited  {
@@ -112,7 +112,7 @@ td {
 hr {
   height: 0;
   border: 0;
-  border-bottom: 1px dashed #49B1F7;
+  border-bottom: 1px dashed #6fb6d4;
 }
 
 dt {
@@ -139,9 +139,9 @@ section {
     }
 
     p {
-      color: #B3D1F0;
+      color: #5885b1;
       font-family: 'Open Sans', sans-serif;
-      font-weight: 100;
+      font-weight: 80;
       font-size: 18px;
       text-align: center;
     }
@@ -166,7 +166,7 @@ section {
   }
 
   .p-title{
-    color: #49B1F7;
+    color: #bc4027;
   }
 }
 
@@ -209,7 +209,7 @@ section {
 #header #sitename,
 .resume span,
 .resume h2 {
-  color: #EC4E3B;
+  color: #bc4027;
 }
 
 #sitename{

@@ -20,4 +20,5 @@ show-scroll: false
 
 # easily change background color
 # dark colors looks better with current font colors
-bg: "#222A30"
+# bg: "#222A30"
+bg: "#101646"
