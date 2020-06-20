@@ -1,22 +1,5 @@
-# Autm-rb
+# personal website
 
-Another theme for jekyll.
+repository storing my personal website. 
 
-## [DEMO][demo]
-
-## Customization
-
-Edit **_config.yml** and files inside **_data/** before using
-
-## Screens
-
-![](screenshots/home.png)
-![](screenshots/post.png)
-
-## Licensing
-
-[MIT](https://github.com/railsr/autm-rb/blob/master/LICENSE)
-
-[pages]: http://pages.github.com
-[fork]: https://github.com/railsr/autm-rb/fork
-[demo]: http://kirqe.github.io/autm-rb/
+theme from [kirqe](https://github.com/kirqe/autm-rb).
