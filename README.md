@@ -2,4 +2,4 @@
 
 repository storing my personal website. 
 
-theme from [kirqe](https://github.com/kirqe/autm-rb).
+theme: striped dowm version of [autm-rb](https://github.com/kirqe/autm-rb) from [kirqe]((https://github.com/kirqe/).
