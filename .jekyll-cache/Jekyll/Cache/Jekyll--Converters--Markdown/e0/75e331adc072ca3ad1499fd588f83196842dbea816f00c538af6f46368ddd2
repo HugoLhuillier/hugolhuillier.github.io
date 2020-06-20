@@ -1,0 +1,48 @@
+I"�<h3 id="the-standard-lorem-ipsum-passage-used-since-the-1500s">The standard Lorem Ipsum passage, used since the 1500s</h3>
+<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”</p>
+
+<p>The standard Lorem Ipsum passage, used since the 1500s</p>
+
+<p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”</p>
+
+<p><img src="http://i.imgur.com/WWCgxX9.jpg" alt="test" /></p>
+
+<h3 id="code-hightlight-examle">Code hightlight examle</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">index</span>
+  <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">cached_short_listed</span><span class="p">.</span><span class="nf">paginate</span><span class="p">(</span><span class="ss">:page</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="p">[</span><span class="ss">:page</span><span class="p">])</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">new</span>
+  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">new</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">create</span>
+  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">post_params</span><span class="p">)</span>
+  <span class="vi">@post</span><span class="p">.</span><span class="nf">user</span> <span class="o">=</span> <span class="n">current_user</span>
+  <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+    <span class="k">if</span> <span class="vi">@post</span><span class="p">.</span><span class="nf">save</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="p">{</span><span class="n">redirect_to</span> <span class="vi">@post</span><span class="p">,</span> <span class="ss">notice: </span><span class="s1">'New post created.'</span><span class="p">}</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">json</span><span class="p">{</span><span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span><span class="p">,</span> <span class="ss">status: :created</span><span class="p">,</span> <span class="ss">location: </span><span class="vi">@post</span><span class="p">}</span>
+    <span class="k">else</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">html</span> <span class="p">{</span><span class="n">render</span> <span class="ss">action: </span><span class="s1">'new'</span><span class="p">}</span>
+      <span class="nb">format</span><span class="p">.</span><span class="nf">json</span> <span class="p">{</span><span class="n">render</span> <span class="ss">json: </span><span class="vi">@post</span><span class="p">.</span><span class="nf">errors</span><span class="p">,</span> <span class="ss">status: :unprocessable_entry</span><span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">code</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Lucida Sans"</span><span class="p">,</span> <span class="n">Monaco</span><span class="p">,</span> <span class="n">Bitstream</span> <span class="n">Vera</span> <span class="n">Sans</span> <span class="n">Mono</span><span class="p">,</span> <span class="n">Lucida</span> <span class="n">Console</span><span class="p">,</span> <span class="n">Terminal</span><span class="p">,</span> <span class="nb">monospace</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">13px</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">4px</span> <span class="m">6px</span><span class="p">;</span>
+  <span class="nl">-webkit-border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">-moz-border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">-ms-border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">-o-border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#848282</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a href="https://github.com/railsr/autm-rb" target="_blank" class="btn btn-success"><i class="fa fa-github fa-lg"></i> View on GitHub</a></p>
+:ET

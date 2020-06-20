@@ -1,3 +1,22 @@
-# Personal website
+# Autm-rb
 
-This is a Jekyll served website statically hosted on Github. The website is based on Valentina Fernandez Alanis' theme, [taken](https://github.com/vfalanis/taken), and the visualization page is drawn from Lia Bogoev's [-folio](https://github.com/bogoli/-folio) theme. 
+Another theme for jekyll.
+
+## [DEMO][demo]
+
+## Customization
+
+Edit **_config.yml** and files inside **_data/** before using
+
+## Screens
+
+![](screenshots/home.png)
+![](screenshots/post.png)
+
+## Licensing
+
+[MIT](https://github.com/railsr/autm-rb/blob/master/LICENSE)
+
+[pages]: http://pages.github.com
+[fork]: https://github.com/railsr/autm-rb/fork
+[demo]: http://kirqe.github.io/autm-rb/

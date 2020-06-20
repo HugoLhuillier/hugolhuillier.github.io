@@ -1,0 +1,8 @@
+# nav items in header
+items:
+  - text: 'About'
+    path: '/'
+  - text: 'Research'
+    path: '/research'
+  - text: 'CV'
+    path: '/files/cvHugoLhuillier.pdf'
