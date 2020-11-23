@@ -18,7 +18,7 @@ body {
 }
 {% endunless %}
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
   color: #dcd64e;
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
@@ -54,6 +54,12 @@ h3 {
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
   color: #b6b6b6;
+}
+
+h6 {
+  color: #b6b6b6;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 a {
