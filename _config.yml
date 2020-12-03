@@ -22,7 +22,7 @@ disqus:
 google:
     tracking-id: "" #your tracking id here
 
-gems:
+plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jemoji
