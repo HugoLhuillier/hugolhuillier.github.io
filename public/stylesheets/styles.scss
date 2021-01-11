@@ -62,17 +62,42 @@ h6 {
   text-justify: inter-word;
 }
 
-a {
+a .char1 { 
   color: #6fb6d4;
   font-weight: 400;
   text-decoration: none;
 }
 
-a:hover {
+a .char2 {
+  color: #e9eaea;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+a:visited .char1 .char2 {
+  text-decoration: none;
+  outline: 0;
+}
+
+a:hover .char1 {
+  text-decoration: underline;
+  outline: 0;
   color: #bc4027;
 }
 
-a:hover, a:active, a:focus, a:visited  {
+a:hover .char2{
+  text-decoration: underline;
+  outline: 0;
+  color: #bc4027;
+}
+
+
+a:active .char1 .char2 {
+  text-decoration: none;
+  outline: 0;
+}
+
+a:focus .char1 .char2 {
   text-decoration: none;
   outline: 0;
 }
