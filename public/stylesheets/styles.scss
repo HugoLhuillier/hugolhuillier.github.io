@@ -5,7 +5,7 @@
 body {
   padding: 0px 0 20px 0px;
   margin: 0px;
-  font: 14px/1.5 'Open Sans', sans-serif;
+  font: 16px/1.5 'Open Sans', sans-serif;
   color: #e9eaea ;
   font-weight: normal;
   background: {{ site.data.theme.bg }};
@@ -110,7 +110,8 @@ a:focus .char1 .char2 {
 }
 
 section img {
-  max-width: 100%;
+  max-width: 90%;
+  height: auto;
 }
 
 blockquote {
@@ -178,7 +179,7 @@ section {
     }
 
     .credits {
-      font-size: 13px;
+      font-size: 16px;
       font-family: 'Open Sans', sans-serif;
       font-weight: normal;
       color: #696969;
@@ -229,8 +230,8 @@ section {
 
 /* for circled image */
 .circular {
-  width: 250px;
-  height: 250px;
+  width-max: 90%;
+  height: auto;
   border-radius: 150px;
   -webkit-border-radius: 150px;
   -moz-border-radius: 150px;
