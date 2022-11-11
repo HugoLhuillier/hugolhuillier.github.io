@@ -74,7 +74,13 @@ a .char2 {
   text-decoration: underline;
 }
 
-a:visited .char1 .char2 {
+a .char3 { 
+  color: #101646;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a:visited .char1 .char2 .char3 {
   text-decoration: none;
   outline: 0;
 }
@@ -91,13 +97,18 @@ a:hover .char2{
   color: #bc4027;
 }
 
+a:hover .char3 {
+  text-decoration: underline;
+  outline: 0;
+  color: #6fb6d4;
+}
 
-a:active .char1 .char2 {
+a:active .char1 .char2 .char3 {
   text-decoration: none;
   outline: 0;
 }
 
-a:focus .char1 .char2 {
+a:focus .char1 .char2 .char3 {
   text-decoration: none;
   outline: 0;
 }
