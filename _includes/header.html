@@ -1,15 +1,18 @@
 <div id="header">
-  <h1>
+  <!-- <br> -->
+  <!-- <h1>
     <a id="sitename" href="{{site.baseurl}}">{{site.title}}</a>
+  </h1> -->
+  <h1>
+    {{site.title}}
   </h1>
 
   {% include google_analytics.html %}
 
-  <!-- Add something about you in p tag-->
-  <p>{{ site.header }}</p>
-  <hr/>
+  <!-- <hr/>
 
-  <span class="credits pull-right social">
+  OLD STYLE
+  <span class="creditssmall pull-right social">
     {% for sl in site.data.personal.social %}
       {% unless sl[1] == '' %}
         <a href="{{sl[1]}}" target="_blank"><i class="fa fa-{{sl[0]}}"></i></a>
@@ -26,7 +29,43 @@
       </a> 
       {% unless forloop.last %} | {% endunless %}
     {% endfor %}
-  </span>
+  </span> -->
 
+  <div class="menu_wrap"> <!-- ADD A WRAPPER -->
+      <ul class="nav">
+        {% for item in site.data.nav.items %}
+          <li><a href="{{ item.path | prepend:site.baseurl }}"
+            {% if page.url == item.path %}style="font-style: oblique;"{% endif %}
+            {% if item.path contains '.pdf' %}target="_blank"{% endif %}>
+              <span class="char1"> {{item.text}} </span>
+          </a></li>
+        {% endfor %}
+      </ul>
+
+      <span class="creditssmall pull-right social">
+      {% for sl in site.data.personal.social %}
+        {% unless sl[1] == '' %}
+          <a href="{{sl[1]}}" target="_blank"><i class="fa fa-{{sl[0]}}"></i></a>
+        {% endunless %}
+      {% endfor %}
+    </span>
+      <div class="clearFloat"></div> <!--  ADD CLEARFIX HERE -->
+  </div> 
+
+  <!-- NEW STYLE -->
+  <!-- <ul class="nav">
+    {% for item in site.data.nav.items %}
+      <li><a href="{{ item.path | prepend:site.baseurl }}"
+        {% if page.url == item.path %}style="text-decoration: underline; font-style: oblique;"{% endif %}
+        {% if item.path contains '.pdf' %}target="_blank"{% endif %}>
+          <span class="char1"> {{item.text}} </span>
+      </a></li>
+    {% endfor %}
+      <li class="noborder"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+  </ul> -->
 
 </div>
+
+
+
+
