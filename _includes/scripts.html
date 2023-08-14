@@ -56,3 +56,27 @@
   });
 </script>
 <!-- abtract toggle -->
+
+<!-- copy website URL -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const copyTitle = document.getElementById("copy-title");
+    const copyableIcon = copyTitle.querySelector(".copyable-icon");
+    copyTitle.addEventListener("click", function() {
+      const url = window.location.href;
+      const tempInput = document.createElement("input");
+      document.body.appendChild(tempInput);
+      tempInput.value = url;
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+    });
+
+  });
+
+</script>
+
+<!-- copy website URL -->
+
+

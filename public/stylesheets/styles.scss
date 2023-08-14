@@ -524,6 +524,31 @@ ul.no-bullets li {
     padding: 0;
 }
 
+// COPY URL FROM TITLE
+
+.copyable {
+  position: relative;
+  cursor: pointer;
+}
+
+.copyable-icon::after {
+  content: ""; /* Clear default content */
+  display: inline-block;
+  margin-left: 10px; /* Add spacing between the text and the icon */
+  opacity: 0; /* Initially hide the icon */
+  transition: opacity 0.1s ease-in-out;
+  background-image: url("/files/link.svg"); /* URL to your SVG icon */
+  background-size: contain; /* Fit the SVG icon within the space */
+  width: 30px; /* Set the width of the SVG icon */
+  height: 30px; /* Set the height of the SVG icon */
+  color:black; 
+  font-size: 30px;
+}
+
+.copyable:hover .copyable-icon::after {
+  opacity: 1; /* Show the icon on hover */
+}
+
 // SOME MODIF. FOR IPHONE
 
 @media (max-width: 480px) {
@@ -590,7 +615,7 @@ ul.no-bullets li {
 
   /* Style the frame around the picture on mobile */
   .image-container::after {
-    top: calc(20%); /* Adjust the top value for desired vertical positioning on mobile */
+    top: calc(18%); /* Adjust the top value for desired vertical positioning on mobile */
     left: calc(50% - 20%); /* Adjust the left value for desired spacing on mobile */
     width: 60%;
     height: 34%;
@@ -600,6 +625,7 @@ ul.no-bullets li {
   .img {
     max-width: 60%;
   }
+
 }
 
 

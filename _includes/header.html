@@ -1,6 +1,14 @@
 <div id="header">
   <h1>
-    {{site.title}}
+    <!-- <span id="copy-title" class="copyable">{{site.title}}</span><span class="copy-hint">(Click to copy website's URL)</span> -->
+    <!-- <span id="copy-title" class="copyable">{{site.title}}<span class="copyable-icon"></span></span> -->
+    <script>
+      if (window.innerWidth >= 768) {
+        document.write('<span id="copy-title" class="copyable">{{site.title}}<span class="copyable-icon"></span></span>');
+      } else {
+        document.write('{{site.title}}');
+      }
+    </script>
   </h1>
 
   {% include google_analytics.html %}
