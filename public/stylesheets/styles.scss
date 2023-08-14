@@ -53,20 +53,20 @@ h1 {
 
 h2 {
   font-size: 26px;
-  line-height: 1.2;
-  font-style: italic;
+  line-height: 0.5;
+  // font-style: italic;
   text-align: center;
-  margin: 0 0 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   // font-family: "American Typewriter";
 }
 
 h3 {
-  font-size: 27px;
-  // font-weight: normal;
-  color: black;
-  // text-decoration: underline;
-  line-height: 2.2;
-  font-family: "American Typewriter";
+  font-size: 26px;
+  // font-weight: 350;
+  // color: black;
+  line-height: 1.2;
+  // font-family: 'American Typewriter', sans-serif;
 }
 
 h4 {
@@ -352,19 +352,6 @@ mark, .mark {
   color: #EC4E3B;
 }
 
-/* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
-  float: left;
-  width: 50%;
-  padding: 0px;
-}
-
-/* Clear floats after image containers */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-} 
 
 // SHAPE 
 
@@ -449,20 +436,61 @@ ul.nav a:hover {
 
 // FANCY IMAGE WRAP 
 
+// .image-container {
+//   position:relative;
+//   text-align: right;
+// }
+
+// .image-container::after {
+//   content:'';
+//   position: absolute;
+//   z-index:-1;
+//   top: -15px;
+//   left: 140px;
+//   width:80%;
+//   height:110%;
+//   background: none;
+//   border: 2px solid black;
+// }
+
 .image-container {
-  position:relative;
+  text-align: right;
 }
 
+.image-box {
+  position: relative;
+  display: inline-block;
+}
+
+.img {
+  max-width: 100%;
+}
+
+/* Style the frame around the picture */
 .image-container::after {
-  content:'';
+  content: '';
   position: absolute;
-  z-index:-1;
-  top: -15px;
-  left: 140px;
-  width:80%;
-  height:110%;
+  z-index: -1;
+  top: calc(30%);
+  left: calc(63% + 20px); /* Adjust the left value for desired spacing */
+  width: 40%;
+  height: 65%;
   background: none;
   border: 2px solid black;
+}
+
+// CHAT-GPT CODE
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+}
+
+.img {
+  max-width: 80%;
 }
 
 // TOGGLE BUTTON
@@ -531,6 +559,46 @@ ul.no-bullets li {
   /* Remove or adjust the social icons */
   .social {
     display: none;
+  }
+
+  .row {
+    flex-direction: column; /* Change to a single column layout on mobile */
+  }
+
+  .column {
+    padding: 20px; /* Increase padding for mobile spacing */
+  }
+
+  .column:first-child {
+    order: 2; /* Change the order of the first column on mobile */
+  }
+
+  .column:last-child {
+    order: 1; /* Change the order of the last column on mobile */
+  }
+
+  .image-container {
+    text-align: center; /* Center the image horizontally on mobile */
+  }
+
+  .image-box {
+    text-align: center; /* Center the image box contents on mobile */
+    margin-left: auto; /* Reset the left margin on mobile */
+    margin-right: auto; /* Center the image box horizontally on mobile */
+    margin-bottom: 15px; /* Add margin to separate the image and text */
+  }
+
+  /* Style the frame around the picture on mobile */
+  .image-container::after {
+    top: calc(20%); /* Adjust the top value for desired vertical positioning on mobile */
+    left: calc(50% - 20%); /* Adjust the left value for desired spacing on mobile */
+    width: 60%;
+    height: 34%;
+  }
+
+  /* Adjust the max-width of the image on mobile */
+  .img {
+    max-width: 60%;
   }
 }
 
