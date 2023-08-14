@@ -44,8 +44,12 @@ h1 {
 }
 
 h1 {
-  font-size: 28px;
+  font-family: 'American Typewriter', sans-serif;
+  font-weight: 100;
+  font-size: 60px;
+  text-align: center;
 }
+
 
 h2 {
   font-size: 26px;
@@ -81,7 +85,7 @@ h6 {
 h5 {
   font-size: 18px;
   color: black;
-  text-align: justify;
+  // text-align: justify;
 }
 
 a .title1 .title2 .title3 {
@@ -131,11 +135,20 @@ a .char2 {
 
 a .char3 { 
   color: black;
+  font-size: 17px;
+  font-weight: 400;
+  margin-right: 10px;
+  text-decoration: underline;
+}
+
+a .char4 { 
+  color: black;
+  font-size: 18px;
   font-weight: 400;
   text-decoration: underline;
 }
 
-a:visited .char1 .char2 .char3 {
+a:visited .char1 .char2 .char3 .char4 {
   text-decoration: none;
   outline: 0;
 }
@@ -146,7 +159,13 @@ a:hover .char1 {
   color: #0000FF;
 }
 
-a:hover .char2{
+a:hover .char4 {
+  text-decoration: underline;
+  outline: 0;
+  color: red;
+}
+
+a:hover .char2 {
   text-decoration: underline;
   outline: 0;
   color: red;
@@ -155,7 +174,8 @@ a:hover .char2{
 a:hover .char3 {
   text-decoration: underline;
   outline: 0;
-  color: rgb(0,0,1);
+  color: #0000FF;
+  font-weight: 600;
 }
 
 a:active .char1 .char2 .char3 {
@@ -230,12 +250,12 @@ section {
     margin: 0 0 20px 0;
     padding: 0 0 5px 0;
 
-    h1 {
-      font-family: 'American Typewriter', sans-serif;
-      font-weight: 100;
-      font-size: 60px;
-      text-align: center;
-    }
+    // h1 {
+    //   font-family: 'American Typewriter', sans-serif;
+    //   font-weight: 100;
+    //   font-size: 60px;
+    //   text-align: center;
+    // }
 
     p {
       color: #5885b1;
@@ -397,7 +417,7 @@ mark, .mark {
   right: -3%;
 }
 
-// TRY NEW HEADER 
+// NEW HEADER 
 
 ul.nav {
     border-bottom: 2px solid black;
@@ -427,7 +447,7 @@ ul.nav a:hover {
 
 .menu_wrap { }
 
-// FANCY IMAGE WRAp 
+// FANCY IMAGE WRAP 
 
 .image-container {
   position:relative;
@@ -450,11 +470,13 @@ ul.nav a:hover {
 .abstract {
     max-height: 0;
     overflow: hidden;
-    margin: 0px 0px 20px;
+    margin: 10px 0px 10px;
     transition: max-height 0.3s ease-in-out;
 }
 .abstract-toggle {
     // color: #007ACC;
+    margin-right: 10px;
+    font-size: 17px;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -473,5 +495,45 @@ ul.no-bullets li {
     margin: 0;
     padding: 0;
 }
+
+// SOME MODIF. FOR IPHONE
+
+@media (max-width: 480px) {
+  /* Apply these styles only when the screen width is 768px or less (typical tablets and smaller) */
+
+  /* Reset some default styles */
+  #header h1 {
+    font-size: 45px;
+    margin: 0;
+  }
+
+  .nav {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .nav li {
+    margin: 0px 0;
+  }
+
+  .nav a {
+    font-size: 22px;
+    color: #5885b1;
+    text-decoration: none;
+  }
+
+  .creditssmall {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  /* Remove or adjust the social icons */
+  .social {
+    display: none;
+  }
+}
+
+
 
 
