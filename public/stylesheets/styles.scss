@@ -437,49 +437,79 @@ ul.nav a:hover {
 // FANCY IMAGE WRAP 
 
 // .image-container {
-//   position:relative;
 //   text-align: right;
 // }
 
+// .image-box {
+//   position: relative;
+//   display: inline-block;
+// }
+
+// .img {
+//   max-width: 70%;
+// }
+
+// /* Style the frame around the picture */
 // .image-container::after {
-//   content:'';
+//   content: '';
 //   position: absolute;
-//   z-index:-1;
-//   top: -15px;
-//   left: 140px;
-//   width:80%;
-//   height:110%;
+//   z-index: -1;
+//   top: calc(30%);
+//   left: calc(63% + 20px); /* Adjust the left value for desired spacing */
+//   width: 40%;
+//   height: 65%;
 //   background: none;
 //   border: 2px solid black;
 // }
 
+// .row {
+//   display: flex;
+// }
+
+// .column {
+//   flex: 1;
+//   padding: 10px;
+// }
+
+// .column img {
+//   display: block; /* This makes the image a block-level element */
+//   margin: 0 25px 0 auto; /* Auto margin left and right will center the image horizontally */
+// }
+
 .image-container {
+  position: relative;
+  width: 110%; /* Set the width of the container */
+  padding-bottom: 125%; /* Set the aspect ratio (e.g., 4:3) by adjusting the padding percentage */
   text-align: right;
+  margin-top: 10px;
 }
 
 .image-box {
-  position: relative;
-  display: inline-block;
+  position: absolute; /* Change to absolute positioning */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .img {
-  max-width: 100%;
+  width: 58%; /* Remove max-width */
 }
 
 /* Style the frame around the picture */
-.image-container::after {
+.image-box::after {
   content: '';
   position: absolute;
   z-index: -1;
-  top: calc(30%);
-  left: calc(63% + 20px); /* Adjust the left value for desired spacing */
-  width: 40%;
-  height: 65%;
+  top: 0;
+  right: 5%;
+  bottom: 18%;
+  left: 30%;
   background: none;
   border: 2px solid black;
+  margin-top: -20px;
 }
 
-// CHAT-GPT CODE
 .row {
   display: flex;
 }
@@ -489,8 +519,9 @@ ul.nav a:hover {
   padding: 10px;
 }
 
-.img {
-  max-width: 80%;
+.column img {
+  display: block; /* This makes the image a block-level element */
+  margin: 0 110px 0 auto; /* Auto margin left and right will center the image horizontally */
 }
 
 // TOGGLE BUTTON
@@ -591,7 +622,13 @@ ul.no-bullets li {
   }
 
   .column {
+    flex: 1;
     padding: 20px; /* Increase padding for mobile spacing */
+  }
+
+  .column img {
+    display: block; /* This makes the image a block-level element */
+    margin: 0 50px 0 auto; /* Auto margin left and right will center the image horizontally */
   }
 
   .column:first-child {
@@ -602,28 +639,63 @@ ul.no-bullets li {
     order: 1; /* Change the order of the last column on mobile */
   }
 
+  // .image-container {
+  //   text-align: center; /* Center the image horizontally on mobile */
+  // }
+
+  // .image-box {
+  //   text-align: center; /* Center the image box contents on mobile */
+  //   margin-left: auto; /* Reset the left margin on mobile */
+  //   margin-right: auto; /* Center the image box horizontally on mobile */
+  //   margin-bottom: 10px; /* Add margin to separate the image and text */
+  // }
+
+  // /* Style the frame around the picture on mobile */
+  // .image-container::after {
+  //   top: calc(18%); /* Adjust the top value for desired vertical positioning on mobile */
+  //   left: calc(50% - 30%); /* Adjust the left value for desired spacing on mobile */
+  //   width: 60%;
+  //   height: 34%;
+  // }
+
+  // /* Adjust the max-width of the image on mobile */
+  // .img {
+  //   max-width: 90%;
+  // }
+
   .image-container {
-    text-align: center; /* Center the image horizontally on mobile */
+    position: relative;
+    width: 100%; /* Set the width of the container */
+    padding-bottom: 50%; /* Set the aspect ratio (e.g., 4:3) by adjusting the padding percentage */
+    text-align: right;
+    margin-top: 10px;
   }
 
   .image-box {
-    text-align: center; /* Center the image box contents on mobile */
-    margin-left: auto; /* Reset the left margin on mobile */
-    margin-right: auto; /* Center the image box horizontally on mobile */
-    margin-bottom: 15px; /* Add margin to separate the image and text */
+    position: absolute; /* Change to absolute positioning */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: -25px;
   }
 
-  /* Style the frame around the picture on mobile */
-  .image-container::after {
-    top: calc(18%); /* Adjust the top value for desired vertical positioning on mobile */
-    left: calc(50% - 20%); /* Adjust the left value for desired spacing on mobile */
-    width: 60%;
-    height: 34%;
-  }
-
-  /* Adjust the max-width of the image on mobile */
   .img {
-    max-width: 60%;
+    width: 90%; /* Remove max-width */
+  }
+
+  /* Style the frame around the picture */
+  .image-box::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    background: none;
+    border: 0px solid black;
+    margin-top: -20px;
   }
 
 }
