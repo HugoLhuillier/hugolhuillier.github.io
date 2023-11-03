@@ -141,6 +141,14 @@ a .char3 {
   text-decoration: underline;
 }
 
+a.char5 { 
+  color: black;
+  font-size: 17px;
+  font-weight: 400;
+  text-decoration: none;
+  // margin-right: 10px;
+}
+
 a .char4 { 
   color: black;
   font-size: 18px;
@@ -148,7 +156,7 @@ a .char4 {
   text-decoration: underline;
 }
 
-a:visited .char1 .char2 .char3 .char4 {
+a:visited .char1 .char2 .char3 .char4 .char5 {
   text-decoration: none;
   outline: 0;
 }
@@ -178,12 +186,17 @@ a:hover .char3 {
   font-weight: 600;
 }
 
-a:active .char1 .char2 .char3 {
+a.char5:hover {
   text-decoration: none;
   outline: 0;
 }
 
-a:focus .char1 .char2 .char3 {
+a:active .char1 .char2 .char3 .char5 {
+  text-decoration: none;
+  outline: 0;
+}
+
+a:focus .char1 .char2 .char3 .char5 {
   text-decoration: none;
   outline: 0;
 }
