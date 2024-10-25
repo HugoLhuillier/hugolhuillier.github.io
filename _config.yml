@@ -11,8 +11,8 @@ header: Ph.D. student, Princeton University
 # for welcome page
 # to replace image go to index.html
 email:
-  address: "hugo.lhuillier@princeton.edu"
-  text: "hugo [dot] lhuillier [at] princeton [dot] edu"
+  address: "hugolhuillier@uchicago.edu"
+  text: "hugolhuillier [at] uchicago [dot] edu"
 
 # disqus comment
 disqus:
