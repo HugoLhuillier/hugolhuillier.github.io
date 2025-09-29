@@ -44,7 +44,7 @@ h1 {
 }
 
 h1 {
-  font-family: 'American Typewriter', sans-serif;
+  font-family: inherit;
   font-weight: 100;
   font-size: 60px;
   text-align: center;
@@ -122,7 +122,7 @@ a .char1 {
   color: black;
   font-weight: 400;
   text-decoration: none;
-  font-family: 'American Typewriter', sans-serif;
+  font-family: inherit;
 }
 
 a .char2 {
@@ -491,22 +491,21 @@ ul.nav a:hover {
 
 .image-container {
   position: relative;
-  width: 110%; /* Set the width of the container */
-  padding-bottom: 125%; /* Set the aspect ratio (e.g., 4:3) by adjusting the padding percentage */
+  width: auto;
+  padding-bottom: 0;
   text-align: right;
   margin-top: 10px;
 }
 
 .image-box {
-  position: absolute; /* Change to absolute positioning */
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative; /* Wrap image dimensions */
+  display: inline-block;
+  margin: 0 20px 0 auto; /* Align box (and frame) with menu's right edge */
+  transform: translateX(20%); /* Nudge right so frame's right edge aligns with menu */
 }
 
 .img {
-  width: 58%; /* Remove max-width */
+  width: 75%; /* Remove max-width */
 }
 
 /* Style the frame around the picture */
@@ -514,13 +513,15 @@ ul.nav a:hover {
   content: '';
   position: absolute;
   z-index: -1;
-  top: 0;
-  right: 5%;
-  bottom: 18%;
-  left: 30%;
+  top: -7%;
+  bottom: -10%;
+  left: 0;
+  right: auto;
+  width: 70%;
   background: none;
   border: 2px solid black;
-  margin-top: -20px;
+  transform: translateX(20%);
+  /* Height +20%; same width as image, shifted 10% right */
 }
 
 .row {
@@ -534,7 +535,7 @@ ul.nav a:hover {
 
 .column img {
   display: block; /* This makes the image a block-level element */
-  margin: 0 110px 0 auto; /* Auto margin left and right will center the image horizontally */
+  margin: 0; /* Alignment handled by .image-box */
 }
 
 // TOGGLE BUTTON
