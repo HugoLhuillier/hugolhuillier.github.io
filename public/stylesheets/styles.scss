@@ -128,7 +128,7 @@ a .char1 {
 a .char2 {
   color: black;
   font-weight: 600;
-  text-decoration: underline;
+  text-decoration: none;
   // font-family: 'American Typewriter', sans-serif;
   font-size: 19px;
 }
@@ -174,16 +174,19 @@ a:hover .char4 {
 }
 
 a:hover .char2 {
-  text-decoration: underline;
+  text-decoration: none;
   outline: 0;
   color: red;
+}
+
+a:has(.char2):hover {
+  text-decoration: none;
 }
 
 a:hover .char3 {
   text-decoration: underline;
   outline: 0;
-  color: #0000FF;
-  font-weight: 600;
+  color: #0000FF
 }
 
 a.char5:hover {
@@ -555,7 +558,6 @@ ul.nav a:hover {
 }
 .abstract-toggle:hover {
   color: blue; 
-  font-weight: 600;
   text-decoration: underline;
 }
 
