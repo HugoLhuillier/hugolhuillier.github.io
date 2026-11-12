@@ -149,9 +149,9 @@ sitemap: false
   <section class="plots">
     <div class="card"><div class="card-head"><h3>Population, <i class="v">N<sub>i</sub></i> and <i class="v">N<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-pop"></canvas></div></div>
     <div class="card"><div class="card-head"><h3>Income, <i class="v">I<sub>i</sub></i> and <i class="v">I<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-inc"></canvas></div></div>
-    <div class="card"><div class="card-head"><h3>Total wage, <i class="v">w<sub>i</sub>N<sub>i</sub> + w<sub>j</sub>N<sub>j</sub></i></h3></div><div class="chart"><canvas id="c-wage"></canvas></div></div>
-    <div class="card"><div class="card-head"><h3>Total income, <i class="v">I<sub>i</sub>N<sub>i</sub> + I<sub>j</sub>N<sub>j</sub></i></h3></div><div class="chart"><canvas id="c-totinc"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Productivity, <i class="v">T<sub>i</sub> = Z<sub>i</sub>N<sub>i</sub><sup>&alpha;</sup></i> and <i class="v">T<sub>j</sub> = Z<sub>j</sub>N<sub>j</sub><sup>&alpha;</sup></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-prod"></canvas></div></div>
     <div class="card"><div class="card-head"><h3>Housing prices, <i class="v">r<sub>i</sub></i> and <i class="v">r<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-rent"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Total income, <i class="v">I<sub>i</sub>N<sub>i</sub> + I<sub>j</sub>N<sub>j</sub></i></h3></div><div class="chart"><canvas id="c-totinc"></canvas></div></div>
     <div class="card"><div class="card-head"><h3>Utility, <i class="v">&#363;</i>: % change from laissez-faire</h3></div><div class="chart"><canvas id="c-util"></canvas></div></div>
 
   </section>
@@ -162,7 +162,7 @@ sitemap: false
   "use strict";
 
   // ---------------------------------------------------------------- parameters
-  var DEFAULTS = { Zi: 1, Zj: 2, Ai: 1, Aj: 1, phi: 1, alpha: 0, tauMax: 1 };
+  var DEFAULTS = { Zi: 1, Zj: 2, Ai: 1, Aj: 1, phi: 1, alpha: 0, tau: 0.5, tauMax: 1 }; // tauMax: fixed range of the plots
   var SPECS = [
     { key: "Zi",    group: "g-prod",  label: "<i class='v'>Z<sub>i</sub></i>", desc: "productivity in i", min: 0.1, max: 5, step: 0.05 },
     { key: "Zj",    group: "g-prod",  label: "<i class='v'>Z<sub>j</sub></i>", desc: "productivity in j", min: 0.1, max: 5, step: 0.05 },
@@ -170,7 +170,7 @@ sitemap: false
     { key: "Aj",    group: "g-amen",  label: "<i class='v'>A<sub>j</sub></i>", desc: "amenity in j",      min: 0.1, max: 3, step: 0.05 },
     { key: "phi",   group: "g-other", label: "<i class='v'>&phi;</i>",         desc: "housing supply elasticity", min: 0.1, max: 5, step: 0.05 },
     { key: "alpha", group: "g-other", label: "<i class='v'>&alpha;</i>",       desc: "agglomeration",     min: 0, max: 0.9, step: 0.01 },
-    { key: "tauMax", group: "g-tau",  label: "max &tau;",                       desc: "range of the plots", min: 0.1, max: 5, step: 0.05 }
+    { key: "tau",   group: "g-tau",   label: "<i class='v'>&tau;</i>",         desc: "subsidy (highlighted in the plots)", min: 0, max: 1, step: 0.01 }
   ];
   var params = Object.assign({}, DEFAULTS);
   var target = "i"; // which city receives the subsidy
@@ -303,17 +303,68 @@ sitemap: false
     }
   };
 
+  // Highlights the outcome at the chosen subsidy: vertical line + a point on each curve.
+  var policyMarker = {
+    id: "policyMarker",
+    afterDatasetsDraw: function (chart) {
+      var m = chart.$marker;
+      if (!m) return;
+      var x = chart.scales.x, y = chart.scales.y, ctx = chart.ctx;
+      var px = x.getPixelForValue(m.x);
+      ctx.save();
+      ctx.strokeStyle = "#000"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(px, y.top); ctx.lineTo(px, y.bottom); ctx.stroke();
+      // dots
+      var labels = [];
+      chart.data.datasets.forEach(function (ds, n) {
+        var v = m.ys[n];
+        if (v === null || !isFinite(v)) return;
+        var py = y.getPixelForValue(v);
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = ds.borderColor; ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = "#FCFCFA"; ctx.stroke();
+        labels.push({ py: py, text: m.fmt(v), color: ds.borderColor });
+      });
+      // value labels next to the dots, on a small tag (right of the line, or left near the right edge);
+      // with two curves the upper label is nudged up and the lower one down
+      labels.sort(function (a, b) { return a.py - b.py; });
+      if (labels.length === 1) labels[0].py -= 14;
+      else if (labels.length === 2) {
+        labels[0].py -= 14; labels[1].py += 14;
+        if (labels[1].py - labels[0].py < 24) {
+          var mid = 0.5 * (labels[0].py + labels[1].py);
+          labels[0].py = mid - 12; labels[1].py = mid + 12;
+        }
+      }
+      ctx.font = "600 13px 'Proxima Nova', sans-serif";
+      ctx.textBaseline = "middle";
+      var right = px + 90 < x.right;
+      labels.forEach(function (l) {
+        var w = ctx.measureText(l.text).width + 10, h = 19;
+        var bx = right ? px + 9 : px - 9 - w, by = Math.min(Math.max(l.py - h / 2, y.top), y.bottom - h);
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(bx, by, w, h, 4); else ctx.rect(bx, by, w, h);
+        ctx.fillStyle = "#FCFCFA"; ctx.fill();
+        ctx.lineWidth = 1.25; ctx.strokeStyle = l.color; ctx.stroke();
+        ctx.textAlign = "left"; ctx.fillStyle = l.color;
+        ctx.fillText(l.text, bx + 5, by + h / 2 + 0.5);
+      });
+      ctx.restore();
+    }
+  };
+
   function makeChart(id, series, unit) {
     unit = unit || "";
     return new Chart(document.getElementById(id), {
       type: "line",
       data: { datasets: series.map(function (s) {
         return { label: s.label, data: [], borderColor: s.color, backgroundColor: s.color,
-                 borderWidth: 3.25, borderDash: s.dash || [], pointRadius: 0, pointHoverRadius: 4, tension: 0 };
+                 borderWidth: 3.25, borderDash: s.dash || [], pointRadius: 0, pointHoverRadius: 0, tension: 0 };
       }) },
       options: {
         animation: false, maintainAspectRatio: false, parsing: false, spanGaps: false,
-        interaction: { mode: "index", intersect: false },
+        events: [],
         scales: {
           x: { type: "linear", title: { display: true, text: "" }, grid: { color: "#EBEAE3" } },
           y: { grid: { color: "#EBEAE3" }, grace: "5%", ticks: { maxTicksLimit: 7,
@@ -321,13 +372,10 @@ sitemap: false
         },
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: {
-            title: function (items) { return "τ = " + items[0].parsed.x.toFixed(3); },
-            label: function (item) { return item.dataset.label + ": " + (unit ? item.parsed.y.toFixed(3) + unit : item.parsed.y.toFixed(4)); }
-          } }
+          tooltip: { enabled: false }
         }
       },
-      plugins: [laissezFaire]
+      plugins: [laissezFaire, policyMarker]
     });
   }
 
@@ -336,15 +384,20 @@ sitemap: false
             get: [function (o) { return o.Ni; }, function (o) { return o.Nj; }] },
     inc:  { chart: makeChart("c-inc",  [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
             get: [function (o) { return o.Ii; }, function (o) { return o.Ij; }] },
-    wage: { chart: makeChart("c-wage", [{ label: "total wage", color: CK }]),
-            get: [function (o) { return o.wi * o.Ni + o.wj * o.Nj; }] },
+    prod: { chart: makeChart("c-prod", [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
+            get: [function (o) { return o.wi; }, function (o) { return o.wj; }] },
     totinc: { chart: makeChart("c-totinc", [{ label: "total income", color: CK }]),
             get: [function (o) { return o.Ii * o.Ni + o.Ij * o.Nj; }] },
     rent: { chart: makeChart("c-rent", [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
             get: [function (o) { return o.ri; }, function (o) { return o.rj; }] },
     util: { chart: makeChart("c-util", [{ label: "\u016b vs. laissez-faire", color: CK }], "%"),
-            get: [function (o, lf) { return lf ? 100 * (o.ui / lf.ui - 1) : NaN; }] }
+            get: [function (o, lf) { return lf ? 100 * (o.ui / lf.ui - 1) : NaN; }],
+            fmt: function (v) { return (v > 0 ? "+" : "") + v.toFixed(2) + "%"; } }
   };
+
+  Object.keys(charts).forEach(function (k) {
+    if (!charts[k].fmt) charts[k].fmt = function (v) { return v.toFixed(3); };
+  });
 
   // ---------------------------------------------------------------- update
   var pending = false;
@@ -359,7 +412,9 @@ sitemap: false
     var xLabel = "\u03c4, subsidy to city " + target;
     document.getElementById("policy-note").innerHTML =
       "Subsidy &tau;<sub>" + target + "</sub> to every worker in city <i class='v'>" + target +
-      "</i>, from 0 to max &tau;; &tau;<sub>" + (target === "i" ? "j" : "i") + "</sub> = 0. Financed by a lump-sum tax <i class='v'>t</i> on all workers.";
+      "</i>; &tau;<sub>" + (target === "i" ? "j" : "i") + "</sub> = 0. Financed by a lump-sum tax <i class='v'>t</i> on all workers.";
+    var mk = Math.round(params.tau / params.tauMax * (res.rows.length - 1));
+    var mrow = res.rows[mk];
 
     Object.keys(charts).forEach(function (k) {
       var c = charts[k];
@@ -373,6 +428,7 @@ sitemap: false
       c.chart.options.scales.x.min = 0;
       c.chart.options.scales.x.max = params.tauMax;
       c.chart.options.scales.x.title.text = xLabel;
+      c.chart.$marker = { x: params.tau, fmt: c.fmt, ys: c.get.map(function (g) { return mrow ? g(mrow, res.rows[0]) : null; }) };
       c.chart.update("none");
     });
 
