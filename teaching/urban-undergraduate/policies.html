@@ -1,0 +1,396 @@
+---
+layout: null
+sitemap: false
+---
+{% raw %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Spatial Policies Simulator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --panel: #f6f7fb;
+    --ink: #1d1f2b;
+    --muted: #6b6f80;
+    --line: #dfe2ea;
+    --accent: #101646;
+    --city-i: rgb(71, 95, 205);
+    --city-j: rgb(250, 148, 66);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Proxima Nova', sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  header {
+    padding: 22px 28px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0; font-size: 22px; color: var(--accent); font-weight: 700; }
+  header p { margin: 4px 0 12px; color: var(--muted); font-size: 14px; }
+  main {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    padding: 20px 28px 32px;
+    max-width: 1500px;
+  }
+  @media (max-width: 900px) {
+    main { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+    header { padding: 16px 16px 6px; }
+  }
+
+  /* ---------- inputs ---------- */
+  aside {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 18px 8px;
+    align-self: start;
+    position: sticky;
+    top: 16px;
+    min-width: 0;
+  }
+  .plots { min-width: 0; }
+  @media (max-width: 900px) { aside { position: static; } }
+  aside h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--muted); margin: 0 0 10px; font-weight: 600;
+  }
+  .group { margin-bottom: 18px; }
+  .param { margin-bottom: 12px; }
+  .param-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .param label { font-size: 15px; }
+  .param .desc { color: var(--muted); font-size: 12.5px; margin-left: 6px; }
+  .param input[type=number] {
+    width: 64px; font: inherit; font-size: 14px; text-align: right;
+    border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; background: #fff;
+  }
+  .param input[type=range] { width: 100%; accent-color: var(--accent); margin: 4px 0 0; }
+
+  .toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--accent); border-radius: 7px; overflow: hidden; }
+  .toggle button {
+    font: inherit; font-size: 14px; padding: 8px 6px; border: 0; cursor: pointer;
+    background: #fff; color: var(--accent);
+  }
+  .toggle button.active { background: var(--accent); color: #fff; font-weight: 600; }
+  .note { color: var(--muted); font-size: 12.5px; margin: 6px 0 10px; }
+  .warn {
+    display: none; background: #fff4e5; border: 1px solid #f3c98b; color: #7a4b00;
+    border-radius: 6px; padding: 8px 10px; font-size: 13px; margin-bottom: 12px;
+  }
+  .reset { font: inherit; font-size: 13px; background: none; border: 0; color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0; margin-bottom: 12px; }
+
+  /* ---------- plots ---------- */
+  .plots {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  @media (max-width: 1100px) { .plots { grid-template-columns: minmax(0, 1fr); } }
+  .card {
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 8px; background: #fff;
+    min-width: 0;
+  }
+  .card-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 14px; margin: 0 0 6px; }
+  .card h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .legend { display: flex; gap: 14px; font-size: 13px; color: #4a4e5e; white-space: nowrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { display: inline-block; width: 18px; height: 4px; border-radius: 2px; }
+  .sw-i { background: var(--city-i); }
+  .sw-j { background: var(--city-j); }
+  .card .chart { position: relative; height: 260px; }
+
+  i.v { font-family: "Times New Roman", Times, serif; font-size: 1.08em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Spatial policies in a two-city model</h1>
+  <p>All workers are mobile. Choose the parameters and which city receives the subsidy; the plots show the spatial equilibrium as a function of the subsidy &tau;.</p>
+</header>
+
+<main>
+  <aside>
+    <h2>Productivity</h2>
+    <div class="group" id="g-prod"></div>
+    <h2>Amenities</h2>
+    <div class="group" id="g-amen"></div>
+    <h2>Housing &amp; agglomeration</h2>
+    <div class="group" id="g-other"></div>
+
+    <h2>Policy</h2>
+    <div class="group">
+      <div class="toggle" role="group" aria-label="Subsidy recipient">
+        <button id="btn-i" class="active" type="button">Subsidy to <i class="v">i</i></button>
+        <button id="btn-j" type="button">Subsidy to <i class="v">j</i></button>
+      </div>
+      <p class="note" id="policy-note"></p>
+      <div id="g-tau"></div>
+    </div>
+    <div class="warn" id="warn"></div>
+    <button class="reset" id="reset" type="button">Reset to default values</button>
+  </aside>
+
+  <section class="plots">
+    <div class="card"><div class="card-head"><h3>Population, <i class="v">N<sub>i</sub></i> and <i class="v">N<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-pop"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Income, <i class="v">I<sub>i</sub></i> and <i class="v">I<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-inc"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Total wage, <i class="v">w<sub>i</sub>N<sub>i</sub> + w<sub>j</sub>N<sub>j</sub></i></h3></div><div class="chart"><canvas id="c-wage"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Total income, <i class="v">I<sub>i</sub>N<sub>i</sub> + I<sub>j</sub>N<sub>j</sub></i></h3></div><div class="chart"><canvas id="c-totinc"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Housing prices, <i class="v">r<sub>i</sub></i> and <i class="v">r<sub>j</sub></i></h3><div class="legend"><span><b class="sw sw-i"></b>city <i class="v">i</i></span><span><b class="sw sw-j"></b>city <i class="v">j</i></span></div></div><div class="chart"><canvas id="c-rent"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Utility, <i class="v">&#363;</i>: % change from laissez-faire</h3></div><div class="chart"><canvas id="c-util"></canvas></div></div>
+
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------------------------------------------------------------- parameters
+  var DEFAULTS = { Zi: 1, Zj: 2, Ai: 1, Aj: 1, phi: 1, alpha: 0, tauMax: 1 };
+  var SPECS = [
+    { key: "Zi",    group: "g-prod",  label: "<i class='v'>Z<sub>i</sub></i>", desc: "productivity in i", min: 0.1, max: 5, step: 0.05 },
+    { key: "Zj",    group: "g-prod",  label: "<i class='v'>Z<sub>j</sub></i>", desc: "productivity in j", min: 0.1, max: 5, step: 0.05 },
+    { key: "Ai",    group: "g-amen",  label: "<i class='v'>A<sub>i</sub></i>", desc: "amenity in i",      min: 0.1, max: 3, step: 0.05 },
+    { key: "Aj",    group: "g-amen",  label: "<i class='v'>A<sub>j</sub></i>", desc: "amenity in j",      min: 0.1, max: 3, step: 0.05 },
+    { key: "phi",   group: "g-other", label: "<i class='v'>&phi;</i>",         desc: "housing supply elasticity", min: 0.1, max: 5, step: 0.05 },
+    { key: "alpha", group: "g-other", label: "<i class='v'>&alpha;</i>",       desc: "agglomeration",     min: 0, max: 0.9, step: 0.01 },
+    { key: "tauMax", group: "g-tau",  label: "max &tau;",                       desc: "range of the plots", min: 0.1, max: 5, step: 0.05 }
+  ];
+  var params = Object.assign({}, DEFAULTS);
+  var target = "i"; // which city receives the subsidy
+
+  // ---------------------------------------------------------------- model
+  // Outcomes for a given population in i (total population = 1).
+  function outcomes(Ni, p, taui, tauj) {
+    var Nj = 1 - Ni;
+    var wi = p.Zi * Math.pow(Ni, p.alpha), wj = p.Zj * Math.pow(Nj, p.alpha);
+    var t = taui * Ni + tauj * Nj - (Ni * wi + Nj * wj) / p.phi;
+    var Ii = wi + taui - t, Ij = wj + tauj - t;
+    var e = p.phi / (1 + p.phi), h = 1 / (1 + p.phi);
+    var ui = Ii > 0 ? p.Ai * Math.pow(Ii, e) * Math.pow(Ni, -h) : NaN;
+    var uj = Ij > 0 ? p.Aj * Math.pow(Ij, e) * Math.pow(Nj, -h) : NaN;
+    return {
+      Ni: Ni, Nj: Nj, wi: wi, wj: wj, t: t, Ii: Ii, Ij: Ij, ui: ui, uj: uj,
+      ri: Ii > 0 ? Math.pow(Ni * Ii, h) : NaN,
+      rj: Ij > 0 ? Math.pow(Nj * Ij, h) : NaN
+    };
+  }
+
+  // log(u_i) - log(u_j); +Inf / -Inf when one city has non-positive income.
+  function gap(Ni, p, taui, tauj) {
+    var o = outcomes(Ni, p, taui, tauj);
+    if (!(o.Ii > 0) && !(o.Ij > 0)) return NaN;
+    if (!(o.Ii > 0)) return -Infinity;
+    if (!(o.Ij > 0)) return Infinity;
+    return Math.log(o.ui) - Math.log(o.uj);
+  }
+
+  // All stable interior equilibria: crossings where u_i - u_j goes from + to - as N_i rises.
+  var GRID = 400, EPS = 1e-7;
+  function stableEquilibria(p, taui, tauj) {
+    var roots = [], prevN = EPS, prevG = gap(prevN, p, taui, tauj);
+    for (var k = 1; k <= GRID; k++) {
+      var N = k === GRID ? 1 - EPS : k / GRID, G = gap(N, p, taui, tauj);
+      if (prevG > 0 && G <= 0) {
+        var lo = prevN, hi = N;
+        for (var it = 0; it < 60; it++) {
+          var mid = 0.5 * (lo + hi);
+          if (gap(mid, p, taui, tauj) > 0) lo = mid; else hi = mid;
+        }
+        roots.push(0.5 * (lo + hi));
+      }
+      prevN = N; prevG = G;
+    }
+    return roots;
+  }
+
+  // Solve along the tau grid, following the branch that is continuous in tau.
+  function solve(p, who) {
+    var n = 201, rows = [], prev = null, multiple = false, broken = false;
+    for (var k = 0; k < n; k++) {
+      var tau = p.tauMax * k / (n - 1);
+      var taui = who === "i" ? tau : 0, tauj = who === "j" ? tau : 0;
+      var roots = stableEquilibria(p, taui, tauj);
+      if (roots.length > 1) multiple = true;
+      if (roots.length === 0) { rows.push(null); broken = true; continue; }
+      var Ni = roots[0];
+      if (prev !== null) {
+        roots.forEach(function (r) { if (Math.abs(r - prev) < Math.abs(Ni - prev)) Ni = r; });
+      } else if (roots.length > 1) {
+        // laissez-faire: pick the equilibrium with the highest utility
+        roots.forEach(function (r) { if (outcomes(r, p, taui, tauj).ui > outcomes(Ni, p, taui, tauj).ui) Ni = r; });
+      }
+      prev = Ni;
+      var o = outcomes(Ni, p, taui, tauj);
+      o.tau = tau;
+      rows.push(o);
+    }
+    return { rows: rows, multiple: multiple, broken: broken };
+  }
+
+  // ---------------------------------------------------------------- inputs
+  function fmt(v, step) {
+    var d = step < 0.1 ? 2 : 1;
+    return Number(v).toFixed(d);
+  }
+  SPECS.forEach(function (s) {
+    var wrap = document.createElement("div");
+    wrap.className = "param";
+    wrap.innerHTML =
+      "<div class='param-head'><label for='r-" + s.key + "'>" + s.label +
+      "<span class='desc'>" + s.desc + "</span></label>" +
+      "<input type='number' id='n-" + s.key + "' min='" + s.min + "' max='" + s.max + "' step='" + s.step + "'></div>" +
+      "<input type='range' id='r-" + s.key + "' min='" + s.min + "' max='" + s.max + "' step='" + s.step + "'>";
+    document.getElementById(s.group).appendChild(wrap);
+    var range = wrap.querySelector("input[type=range]"), num = wrap.querySelector("input[type=number]");
+    range.addEventListener("input", function () { params[s.key] = +range.value; num.value = fmt(range.value, s.step); update(); });
+    num.addEventListener("change", function () {
+      var v = Math.min(s.max, Math.max(s.min, +num.value || s.min));
+      params[s.key] = v; range.value = v; num.value = fmt(v, s.step); update();
+    });
+  });
+  function syncInputs() {
+    SPECS.forEach(function (s) {
+      document.getElementById("r-" + s.key).value = params[s.key];
+      document.getElementById("n-" + s.key).value = fmt(params[s.key], s.step);
+    });
+  }
+
+  var btnI = document.getElementById("btn-i"), btnJ = document.getElementById("btn-j");
+  function setTarget(w) {
+    target = w;
+    btnI.classList.toggle("active", w === "i");
+    btnJ.classList.toggle("active", w === "j");
+    update();
+  }
+  btnI.addEventListener("click", function () { setTarget("i"); });
+  btnJ.addEventListener("click", function () { setTarget("j"); });
+  document.getElementById("reset").addEventListener("click", function () {
+    params = Object.assign({}, DEFAULTS); syncInputs(); setTarget("i");
+  });
+
+  // ---------------------------------------------------------------- charts
+  var CI = "rgb(71, 95, 205)", CJ = "rgb(250, 148, 66)", CK = "#1d1f2b";
+  Chart.defaults.font.family = "'Proxima Nova', sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = "#4a4e5e";
+
+  var laissezFaire = {
+    id: "laissezFaire",
+    afterDatasetsDraw: function (chart) {
+      var x = chart.scales.x, y = chart.scales.y, ctx = chart.ctx;
+      var px = x.getPixelForValue(0);
+      ctx.save();
+      ctx.strokeStyle = "#888"; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(px, y.top); ctx.lineTo(px, y.bottom); ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  function makeChart(id, series, unit) {
+    unit = unit || "";
+    return new Chart(document.getElementById(id), {
+      type: "line",
+      data: { datasets: series.map(function (s) {
+        return { label: s.label, data: [], borderColor: s.color, backgroundColor: s.color,
+                 borderWidth: 3.25, borderDash: s.dash || [], pointRadius: 0, pointHoverRadius: 4, tension: 0 };
+      }) },
+      options: {
+        animation: false, maintainAspectRatio: false, parsing: false, spanGaps: false,
+        interaction: { mode: "index", intersect: false },
+        scales: {
+          x: { type: "linear", title: { display: true, text: "" }, grid: { color: "#eef0f4" } },
+          y: { grid: { color: "#eef0f4" }, grace: "5%", ticks: { maxTicksLimit: 7,
+               callback: function (v, i, ticks) { var lab = Chart.Ticks.formatters.numeric.call(this, v, i, ticks); return unit ? lab + unit : lab; } } }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: {
+            title: function (items) { return "τ = " + items[0].parsed.x.toFixed(3); },
+            label: function (item) { return item.dataset.label + ": " + (unit ? item.parsed.y.toFixed(3) + unit : item.parsed.y.toFixed(4)); }
+          } }
+        }
+      },
+      plugins: [laissezFaire]
+    });
+  }
+
+  var charts = {
+    pop:  { chart: makeChart("c-pop",  [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
+            get: [function (o) { return o.Ni; }, function (o) { return o.Nj; }] },
+    inc:  { chart: makeChart("c-inc",  [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
+            get: [function (o) { return o.Ii; }, function (o) { return o.Ij; }] },
+    wage: { chart: makeChart("c-wage", [{ label: "total wage", color: CK }]),
+            get: [function (o) { return o.wi * o.Ni + o.wj * o.Nj; }] },
+    totinc: { chart: makeChart("c-totinc", [{ label: "total income", color: CK }]),
+            get: [function (o) { return o.Ii * o.Ni + o.Ij * o.Nj; }] },
+    rent: { chart: makeChart("c-rent", [{ label: "city i", color: CI }, { label: "city j", color: CJ }]),
+            get: [function (o) { return o.ri; }, function (o) { return o.rj; }] },
+    util: { chart: makeChart("c-util", [{ label: "\u016b vs. laissez-faire", color: CK }], "%"),
+            get: [function (o, lf) { return lf ? 100 * (o.ui / lf.ui - 1) : NaN; }] }
+  };
+
+  // ---------------------------------------------------------------- update
+  var pending = false;
+  function update() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function () { pending = false; render(); });
+  }
+
+  function render() {
+    var res = solve(params, target);
+    var xLabel = "\u03c4, subsidy to city " + target;
+    document.getElementById("policy-note").innerHTML =
+      "Subsidy &tau;<sub>" + target + "</sub> to every worker in city <i class='v'>" + target +
+      "</i>, from 0 to max &tau;; &tau;<sub>" + (target === "i" ? "j" : "i") + "</sub> = 0. Financed by a lump-sum tax <i class='v'>t</i> on all workers.";
+
+    Object.keys(charts).forEach(function (k) {
+      var c = charts[k];
+      c.chart.data.datasets.forEach(function (ds, n) {
+        ds.data = res.rows.map(function (o, idx) {
+          var x = params.tauMax * idx / (res.rows.length - 1);
+          var y = o ? c.get[n](o, res.rows[0]) : NaN;
+          return { x: x, y: isFinite(y) ? y : null };
+        });
+      });
+      c.chart.options.scales.x.min = 0;
+      c.chart.options.scales.x.max = params.tauMax;
+      c.chart.options.scales.x.title.text = xLabel;
+      c.chart.update("none");
+    });
+
+    var msgs = [];
+    if (params.alpha * params.phi >= 1)
+      msgs.push("&alpha;&phi; &ge; 1: agglomeration is strong enough that equilibria may be multiple or unstable.");
+    if (res.multiple)
+      msgs.push("Several stable equilibria exist for some &tau;; the plots follow the one that is continuous in &tau;.");
+    if (res.broken)
+      msgs.push("For some &tau; no equilibrium with positive incomes exists; those points are left blank.");
+    var w = document.getElementById("warn");
+    w.innerHTML = msgs.join("<br>");
+    w.style.display = msgs.length ? "block" : "none";
+  }
+
+  syncInputs();
+  render();
+
+  // exposed for testing in the browser console
+  window.spatialModel = { outcomes: outcomes, solve: solve };
+})();
+</script>
+</body>
+</html>
+{% endraw %}
